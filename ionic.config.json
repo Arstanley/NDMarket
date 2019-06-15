@@ -1,0 +1,8 @@
+{
+  "name": "furniture",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular",
+  "pro_id": "cbe34766"
+}
