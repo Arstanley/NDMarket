@@ -10,6 +10,7 @@ import { HomePage } from '../pages/home/home';
 import { HometabsPage } from '../pages/hometabs/hometabs';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { NewItemPage } from '../pages/new-item/new-item';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
     HomePage,
     HometabsPage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
+    NewItemPage
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
     HomePage,
     HometabsPage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
+    NewItemPage
   ],
   providers: [
     StatusBar,

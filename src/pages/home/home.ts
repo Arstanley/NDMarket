@@ -3,6 +3,7 @@ import { NavController, AlertController } from 'ionic-angular';
 import {Storage} from '@ionic/storage'
 import { LoginPage } from '../login/login';
 import { SignUpPage } from '../sign-up/sign-up';
+import { NewItemPage } from '../new-item/new-item';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -16,7 +17,7 @@ export class HomePage {
   addNewItem() {
     this.storage.get('logged').then((data)=>{
       if (data) {
-
+        this.navCtrl.push(NewItemPage)
       } else {
         this.alertCtrl.create({
           title: 'Message', 

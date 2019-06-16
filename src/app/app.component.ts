@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { HometabsPage } from '../pages/hometabs/hometabs';
-
+import { NewItemPage } from '../pages/new-item/new-item';
 import Parse from 'parse'
 import { ParseError } from '@angular/compiler';
 @Component({
@@ -21,8 +21,9 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-    Parse.initialize('rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx', '5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky')
-    Parse.serveURL = 'https://parseapi.back4app.com/'
+    	
+    Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
+   	Parse.serverURL = 'https://parseapi.back4app.com/';
   }
 }
 
