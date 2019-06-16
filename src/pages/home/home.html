@@ -1,14 +1,37 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Ionic Blank
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+      </button>
+    <ion-title> 
+      NDMarket --beta0.0.1
     </ion-title>
+    <ion-buttons end>
+        <button (click)="searchToggle()">
+        <ion-icon name="search"></ion-icon>
+      </button>
+      </ion-buttons>
   </ion-navbar>
 </ion-header>
 
+
 <ion-content padding>
   The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-fab bottom right>
+      <button ion-fab (click)="addNewItem()">
+        <ion-icon name="add"></ion-icon>
+  </button>
+</ion-fab>
+  
 </ion-content>
+
+
+<ion-menu [content]="mycontent">
+    <ion-content>
+      <ion-list>
+        <p>some menu content, could be list items</p>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  
+  <ion-nav #mycontent [root]="HomePage"></ion-nav>
