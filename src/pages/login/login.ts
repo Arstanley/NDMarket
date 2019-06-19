@@ -33,7 +33,8 @@ export class LoginPage {
           if(user.get('emailVerified')) {
             // If you app has Tabs, set root to TabsPage
             this.navCtrl.push('NewItemPage')
-            this.storage.set("logged", "True")
+            this.storage.set("logged", user.id)
+            alert(user.id)
         } else {
             Parse.User.logOut().then((resp) => {
                 console.log('Logged out successfully', resp);
