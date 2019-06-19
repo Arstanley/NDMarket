@@ -11,8 +11,8 @@ import { HometabsPage } from '../pages/hometabs/hometabs';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 import { NewItemPage } from '../pages/new-item/new-item';
-
-
+import {Camera} from '@ionic-native/camera'
+import {File} from '@ionic-native/file'
 @NgModule({
   declarations: [
     MyApp,
@@ -25,7 +25,7 @@ import { NewItemPage } from '../pages/new-item/new-item';
   imports: [
     BrowserModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp, {swipeBackEnabled: true})
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -39,7 +39,9 @@ import { NewItemPage } from '../pages/new-item/new-item';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    Camera,
+    File,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
   ]
 })
 export class AppModule {}
