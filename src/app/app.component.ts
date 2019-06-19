@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { HometabsPage } from '../pages/hometabs/hometabs';
 import { NewItemPage } from '../pages/new-item/new-item';
+import {AccountPage} from '../pages/account/account'
 import Parse from 'parse'
 import { ParseError } from '@angular/compiler';
 @Component({

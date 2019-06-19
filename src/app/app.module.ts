@@ -13,6 +13,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { NewItemPage } from '../pages/new-item/new-item';
 import {Camera} from '@ionic-native/camera'
 import {File} from '@ionic-native/file'
+import { AccountPage } from '../pages/account/account';
 @NgModule({
   declarations: [
     MyApp,
@@ -20,7 +21,8 @@ import {File} from '@ionic-native/file'
     HometabsPage,
     LoginPage,
     SignUpPage,
-    NewItemPage
+    NewItemPage,
+    AccountPage
   ],
   imports: [
     BrowserModule,
@@ -34,7 +36,8 @@ import {File} from '@ionic-native/file'
     HometabsPage,
     LoginPage,
     SignUpPage,
-    NewItemPage
+    NewItemPage,
+    AccountPage
   ],
   providers: [
     StatusBar,

@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import Parse from 'parse'
 import {Storage} from '@ionic/storage'
+import {NewItemPage} from '../new-item/new-item'
+import { HometabsPage } from '../hometabs/hometabs';
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -32,9 +35,9 @@ export class LoginPage {
         console.log('Logged in successfully', user);
           if(user.get('emailVerified')) {
             // If you app has Tabs, set root to TabsPage
-            this.navCtrl.push('NewItemPage')
+            this.navCtrl.setRoot(HometabsPage)
+            this.navCtrl.push(NewItemPage)
             this.storage.set("logged", user.id)
-            alert(user.id)
         } else {
             Parse.User.logOut().then((resp) => {
                 console.log('Logged out successfully', resp);
