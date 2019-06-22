@@ -1,17 +1,44 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import {Storage} from '@ionic/storage'
 import { LoginPage } from '../login/login';
 import { SignUpPage } from '../sign-up/sign-up';
 import { NewItemPage } from '../new-item/new-item';
+import Parse from 'parse'
+import { query } from '@angular/core/src/animation/dsl';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+  items: Array<{name: string, description: string, imageURL: any}>
+  constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController) {
+    Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
+    Parse.serverURL = 'https://parseapi.back4app.com/';
+    this.load()
+  }
 
-  constructor(public alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController) {
+  async load() {
+    const loading = this.loadingCtrl.create({
+      spinner: "dots",
+    })
+    loading.present()
+    await this.parse()
+    loading.dismiss()
+  }
 
+  async parse() {
+    const Item = Parse.Object.extend("Items")
+    const q = new Parse.Query(Item)
+    const results = await q.find();
+    this.items = []
+    for (let i = 0; i < results.length; ++i) {
+      this.items.push({
+        name: results[i].get('name'),
+        description: results[i].get('description'),
+        imageURL: results[i].get('Image').url()
+      })
+    }
   }
 
   addNewItem() {
@@ -41,5 +68,9 @@ export class HomePage {
         }).present()
       }
     })
+  }
+
+  ionViewWillEnter() {
+    this.load()
   }
 }

@@ -15,7 +15,7 @@
       <button ion-button icon-only center (click)="openCamera()" *ngIf="takenPhoto==false">
         <ion-icon color="dark" name = "camera"></ion-icon>  
       </button>
-      <p *ngIf="takenPhoto"><img src="{{myphoto}}"></p>
+      <p *ngIf="takenPhoto" id="img"><img src="{{this.photofile}}"></p>
   </div>
   
   <div>
@@ -30,7 +30,7 @@
   </div>
 
   <div text-center>
-      <button ion-button center (click)="submit()">
+      <button ion-button center (click)="loading()">
         SUBMIT
       </button>
   </div>

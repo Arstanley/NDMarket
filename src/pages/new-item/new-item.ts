@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DomSanitizer } from '@angular/platform-browser';
 import {File} from '@ionic-native/file'
+import {Storage} from '@ionic/storage'
 import Parse from 'parse'
+import { query } from '@angular/core/src/render3/instructions';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
+import { SelectorMatcher } from '@angular/compiler';
 /**
  * Generated class for the NewItemPage page.
  *
@@ -20,9 +24,20 @@ export class NewItemPage {
 
   myphoto: any
   takenPhoto: boolean = false
-  constructor(public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
+  user: any
+  name: string
+  description: any
+  photofile: any
+  constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
-   	Parse.serverURL = 'https://parseapi.back4app.com/';
+    Parse.serverURL = 'https://parseapi.back4app.com/';
+    const User = Parse.User
+    var query = new Parse.Query(User);
+    storage.get('logged').then((userid)=>{
+      query.get(userid).then((user)=>{
+        this.user = user
+      })
+    })
   }
 
   ionViewDidLoad() {
@@ -31,7 +46,7 @@ export class NewItemPage {
   openCamera() {
     const options: CameraOptions = {
       quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
@@ -42,15 +57,46 @@ export class NewItemPage {
     this.camera.getPicture(options).then((imageData) => {
       //needs to import file plugin
       //split the file and the path from FILE_URI result
-      let filename = imageData.substring(imageData.lastIndexOf('/')+1);
-      let path =  imageData.substring(0,imageData.lastIndexOf('/')+1);
-      //then use the method reasDataURL  btw. var_picture is ur image variable
-      this.file.readAsDataURL(path, filename).then(res=> this.myphoto = res  );
+      this.photofile = 'data:image/jpeg;base64,' + imageData;
       this.takenPhoto = true
     })
   }
+  async loading() {
+    const loading = this.loadingCtrl.create({
+      spinner: "dots",
+      duration: 10000
+    })
+    loading.present()
+    await this.submit()
+    loading.dismiss()
+  }
 
   submit() {
-    
+    var ParseFile = new Parse.File("item.jpg", {base64: this.photofile});
+    const Item = Parse.Object.extend("Items")
+    var item = new Item();
+    item.set("user", this.user)
+    item.set("name", this.name)
+    item.set("description", this.description)
+    item.set("Image", ParseFile)
+    item.save().then(()=>{
+      this.toastCtrl.create (
+        {
+          message: "Success",
+          duration: 2000
+        }
+      ).present()
+    }, (err) => {
+      alert('Error occurs in updating')
+      alert(err.message)
+    })
+  }
+
+  encodeImageFileAsURL(file) {
+    var reader = new FileReader();
+    reader.onloadend = function() {
+      console.log('RESULT', reader.result)
+    }
+    reader.readAsDataURL(file);
   }
 }

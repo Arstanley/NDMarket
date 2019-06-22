@@ -16,7 +16,18 @@
 
 
 <ion-content padding>
-  The world is your oyster.
+    <div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-6 col-md-4 col-xl-3 *ngFor="let item of items">
+            <div class="image-container"><img src="{{item.imageURL}}" width="100%" /></div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    
+    </div>
+
+
   <ion-fab bottom right>
       <button ion-fab (click)="addNewItem()">
         <ion-icon name="add"></ion-icon>
