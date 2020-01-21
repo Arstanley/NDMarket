@@ -39,30 +39,29 @@ export class FavoritesPage {
   }
 
   async parse() {
-    this.storage.get('logged').then((data)=>{
+    this.storage.get('logged').then(async (data)=>{
       if (data) {
         const Usr = Parse.Object.extend('User')
         const q = new Parse.Query(Usr)
 
-        q.get(data).then((user)=>{
-          user.get('Favorites').then((res)=>{
-            console.log(res)
-          })
-          
+        await q.get(data).then(async (user)=>{
+          this.favorites_list = await user.get('Favorites')
         })
 
         const Item = Parse.Object.extend('Items')
         const q_item = new Parse.Query(Item)
         this.items = []
-
+        
         for (let i = 0; i < this.favorites_list.length; ++i) {
-          var cur_item = q_item.get(this.favorites_list[i])
+          
+          var cur_item = await q_item.get(this.favorites_list[i])
+         
           this.items.push({
-            name: cur_item.name,
-            description: cur_item.description,
-            imageURL: cur_item.Image.url(),
-            id: cur_item.id,
-            price: cur_item.price
+            name: cur_item.get('name'),
+            description: cur_item.get('description'),
+            imageURL: cur_item.get('Image').url(),
+            id: cur_item.get('id'),
+            price: cur_item.get('price')
           })
         }
 

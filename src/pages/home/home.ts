@@ -28,7 +28,6 @@ export class HomePage {
   }
 
   async parse() {
-    console.log('hi')
     const Item = Parse.Object.extend("Items")
     const q = new Parse.Query(Item)
     const results = await q.find();
