@@ -1,3 +1,22 @@
 page-sign-up {
-
+    .addAvatar{
+        border-radius: 50%;
+        height: 100px;
+        background-color: lightgray;
+        width:100px;
+        margin-left: auto;
+        margin-right: auto;
+        padding-right: 0;
+        padding-left: 0;
+        padding-top: 0%;
+        padding-bottom: 0%
+    }
+    ion-icon{
+        font-size: 30px;
+    }
+    img {
+        width: 100%;
+        border-radius: 50%;
+        object-fit: cover;
+    }
 }

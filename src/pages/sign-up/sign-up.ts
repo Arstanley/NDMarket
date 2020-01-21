@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
+import {ActionSheetController ,IonicPage, NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import Parse from 'parse'
+import { Camera, CameraOptions } from '@ionic-native/camera';
 /**
  * Generated class for the SignUpPage page.
  *
@@ -17,7 +18,9 @@ export class SignUpPage {
   username: String
   password: String
   email: String
-  constructor(public toastCtrl: ToastController,public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams) {
+  takenAvatar: Boolean = true
+  photoFile: any
+  constructor(public camera: Camera, public actionSheetCtrl: ActionSheetController ,public toastCtrl: ToastController,public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
    	Parse.serverURL = 'https://parseapi.back4app.com/';
   }
@@ -32,6 +35,54 @@ export class SignUpPage {
       buttons: ['OK']
     }).present()
   }
+
+  addAvatar() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Input Source',
+      buttons: [
+        {
+          text: "Take Photo",
+          handler: () => {
+            this.takePhoto()
+          }
+        },
+        {
+          text: "Library",
+          handler: () => {
+            this.selectPhotoFromLibrary()
+          }
+        },
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        }
+      ]
+    }).present()
+  }
+
+  selectPhotoFromLibrary() {
+
+  }
+
+  takePhoto() {
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      allowEdit: true,
+      targetHeight: 1024,
+      targetWidth: 1024
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+      //needs to import file plugin
+      //split the file and the path from FILE_URI result
+      this.photoFile = 'data:image/jpeg;base64,' + imageData;
+      this.takenAvatar = true
+    })
+  }
+
   signUp() {
     if (this.email.slice(-6) != 'nd.edu') {
       this.alertCtrl.create({

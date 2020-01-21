@@ -6,9 +6,11 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { HometabsPage } from '../pages/hometabs/hometabs';
 import { NewItemPage } from '../pages/new-item/new-item';
+import {ItemDetailPage} from '../pages/item-detail/item-detail'
 import {AccountPage} from '../pages/account/account'
 import Parse from 'parse'
 import { ParseError } from '@angular/compiler';
+import {FavoritesPage} from '../pages/favorites/favorites'
 @Component({
   templateUrl: 'app.html'
 })

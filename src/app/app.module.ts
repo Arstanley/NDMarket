@@ -4,7 +4,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import {IonicStorageModule} from '@ionic/storage'
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { HometabsPage } from '../pages/hometabs/hometabs';
@@ -14,6 +13,10 @@ import { NewItemPage } from '../pages/new-item/new-item';
 import {Camera} from '@ionic-native/camera'
 import {File} from '@ionic-native/file'
 import { AccountPage } from '../pages/account/account';
+import {CommonModule} from '@angular/common'
+import { ItemDetailPage } from '../pages/item-detail/item-detail';
+import { FavoritesPage } from '../pages/favorites/favorites';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -22,10 +25,13 @@ import { AccountPage } from '../pages/account/account';
     LoginPage,
     SignUpPage,
     NewItemPage,
-    AccountPage
+    AccountPage,
+    ItemDetailPage,
+    FavoritesPage
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     IonicStorageModule.forRoot(),
     IonicModule.forRoot(MyApp, {swipeBackEnabled: true})
   ],
@@ -37,7 +43,9 @@ import { AccountPage } from '../pages/account/account';
     LoginPage,
     SignUpPage,
     NewItemPage,
-    AccountPage
+    AccountPage,
+    ItemDetailPage,
+    FavoritesPage
   ],
   providers: [
     StatusBar,

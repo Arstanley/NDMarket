@@ -6,16 +6,16 @@ import { SignUpPage } from '../sign-up/sign-up';
 import { NewItemPage } from '../new-item/new-item';
 import Parse from 'parse'
 import { query } from '@angular/core/src/animation/dsl';
+import { ItemDetailPage } from '../item-detail/item-detail';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
-  items: Array<{name: string, description: string, imageURL: any}>
+  items: Array<{name: string, description: string, imageURL: any, id: any, price: any}>
   constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
     Parse.serverURL = 'https://parseapi.back4app.com/';
-    this.load()
   }
 
   async load() {
@@ -28,6 +28,7 @@ export class HomePage {
   }
 
   async parse() {
+    console.log('hi')
     const Item = Parse.Object.extend("Items")
     const q = new Parse.Query(Item)
     const results = await q.find();
@@ -35,8 +36,10 @@ export class HomePage {
     for (let i = 0; i < results.length; ++i) {
       this.items.push({
         name: results[i].get('name'),
+        price: results[i].get('price'),
         description: results[i].get('description'),
-        imageURL: results[i].get('Image').url()
+        imageURL: results[i].get('Image').url(), 
+        id: results[i].id,
       })
     }
   }
@@ -67,6 +70,12 @@ export class HomePage {
           ]
         }).present()
       }
+    })
+  }
+
+  openDetailPage(item) {
+    this.navCtrl.push(ItemDetailPage, {
+      item: item
     })
   }
 

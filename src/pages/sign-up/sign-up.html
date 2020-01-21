@@ -11,6 +11,17 @@
 </ion-header>
 
 <ion-content padding>
+    <div text-center *ngIf="takenAvatar==false">
+      <ion-item class="addAvatar" (click)="addAvatar()">
+        <ion-icon name="add" margin-left="auto" margin-right="auto"></ion-icon>  
+      </ion-item>
+    </div>
+    <div text-center *ngIf="takenAvatar">
+        <ion-item (click)="addAvatar()" class="addAvatar" >
+          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-item>
+    </div>
+
     <ion-item>
       <ion-label floating>Username</ion-label>
       <ion-input [(ngModel)]="username"></ion-input>

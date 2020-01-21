@@ -28,6 +28,7 @@ export class NewItemPage {
   name: string
   description: any
   photofile: any
+  price: any
   constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
     Parse.serverURL = 'https://parseapi.back4app.com/';
@@ -78,6 +79,7 @@ export class NewItemPage {
     item.set("user", this.user)
     item.set("name", this.name)
     item.set("description", this.description)
+    item.set("price", this.price)
     item.set("Image", ParseFile)
     item.save().then(()=>{
       this.toastCtrl.create (

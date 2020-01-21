@@ -1,0 +1,56 @@
+page-item-detail {
+    img-holder {
+        width: 100vw;
+        height: 100vw;
+        position: relative;
+    }
+
+    .img-holder .btn {
+        position: absolute;
+        top: 5%;
+        font-size: 10px;
+    }
+
+    .img-holder .btn:hover{
+        background-color: black;
+    }
+ 
+    .round-corners{
+        border-radius: 15px;
+        margin-bottom: -5px;
+    }
+
+    .contact-info{
+        width: 92vw;
+        margin-top: 3px;
+    }
+
+    .light-details{
+        width: 92vw;
+        margin-top: 3px;
+        margin-right: 5px;
+        padding: 5px;
+        border-radius: 15px;
+        background-color: #f3f2f2
+    }
+    .light-details .avatar{
+        margin-top: 0px;
+        margin-bottom: -2px;
+        border-radius: 100px;
+        height: 6vw;
+        width: 6vw;
+    }
+    .light-details .usrname{
+        display: inline-block;
+        font-size: 5vw;
+    }
+    .light-details .h1{
+        font-size: 6vw;
+    }
+    .price{
+        display: inline-block;
+        font-size: 5vw;
+        font-weight: bold;
+        float: right;
+    }
+}

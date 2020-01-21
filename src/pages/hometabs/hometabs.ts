@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { AccountPage } from '../account/account';
+import {FavoritesPage} from '../favorites/favorites' 
 
 /**
  * Generated class for the HometabsPage page.
@@ -17,6 +18,7 @@ import { AccountPage } from '../account/account';
 })
 export class HometabsPage {
   tab1Root = HomePage
+  tab2Root = FavoritesPage
   tab4Root = AccountPage
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }

@@ -20,7 +20,14 @@
       <ion-grid>
         <ion-row>
           <ion-col col-6 col-md-4 col-xl-3 *ngFor="let item of items">
-            <div class="image-container"><img src="{{item.imageURL}}" width="100%" /></div>
+            <div class="image-container" (click)="openDetailPage(item)">
+              <img class="rounded-corners" src="{{item.imageURL}}" width="100%">
+              
+              <span class="item_name"> <img class="avatar" src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+                {{item.name}}
+              <span>{{item.price}}$</span>
+              </span>
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>

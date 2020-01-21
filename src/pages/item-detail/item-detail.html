@@ -1,0 +1,47 @@
+<!--
+  Generated template for the ItemDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{cur_item.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class='img-holder'>
+      <ion-slides pager="true" *ngFor="let pic of pics">
+          <ion-slide>
+              <img class='round-corners' src="{{pic}}" width="100%">
+          </ion-slide>
+      </ion-slides>
+      <ion-icon name="star-outline" class='btn'></ion-icon>
+  </div>
+
+  <div class='light-details'>
+      <img class='avatar' src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" align-left>
+      <div class = 'usrname'>
+        {{this.cur_usrname}}
+      </div>
+      <div class='price'>
+        {{this.cur_item.price}}$
+      </div>  
+  </div>
+
+  <div class='light-details'>
+    <h1 class='h1'> Description </h1>
+    <p> 
+      {{this.description}}
+    </p>
+  </div>
+
+  <div class='contact-info'>
+      <button ion-button block color='secondary' (click)='message()'>Message</button>
+      <button ion-button block color='primary' (click)='email()'>Email</button>
+      <button ion-button block color='primary' (click)='save()'>Save For Later</button>
+  </div>
+
+
+</ion-content>
