@@ -36,10 +36,19 @@
       {{this.description}}
     </p>
   </div>
-
+  <div class='light-details'>
+    <h1 class='h1'> Contact Information </h1>
+    <p *ngIf="email != undefined"> 
+      Email: {{this.email}}
+    </p>
+    <p *ngIf="wechat != undefined">
+      Wechat: {{this.wechat}}
+    </p>
+    <p *ngIf="number != undefined">
+      Phone Number: {{this.number}}
+    </p>
+  </div>
   <div class='contact-info'>
-      <button ion-button block color='secondary' (click)='message()'>Message</button>
-      <button ion-button block color='primary' (click)='email()'>Email</button>
       <button ion-button block color='primary' (click)='save()'>Save For Later</button>
   </div>
 

@@ -12,6 +12,7 @@ import { ItemDetailPage } from '../item-detail/item-detail';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  public toggled:boolean = false;
   items: Array<{name: string, description: string, imageURL: any, id: any, price: any}>
   constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
@@ -41,6 +42,18 @@ export class HomePage {
         id: results[i].id,
       })
     }
+  }
+
+  clickSearchToggle() {
+    this.toggled = !this.toggled
+  }
+  
+  async triggerInput(ev: any) {
+    await this.load()
+    let val = ev.target.value
+    this.items = this.items.filter((item) => {
+      return (item.name.toLowerCase().indexOf(val.toLowerCase()) > -1)
+    })
   }
 
   addNewItem() {

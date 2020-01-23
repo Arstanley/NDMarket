@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Alert, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DomSanitizer } from '@angular/platform-browser';
 import {File} from '@ionic-native/file'
@@ -29,7 +29,10 @@ export class NewItemPage {
   description: any
   photofile: any
   price: any
-  constructor(public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
+  email: string
+  number: any 
+  wechat: string
+  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
     Parse.serverURL = 'https://parseapi.back4app.com/';
     const User = Parse.User
@@ -72,26 +75,53 @@ export class NewItemPage {
     loading.dismiss()
   }
 
+  checkInput() {
+    if (this.name == "") {
+      this.alertCtrl.create({
+        message: "Please enter a name for your object"
+      }).present()
+      return false
+    } else if(this.takenPhoto == false) {
+      this.alertCtrl.create({
+        message: "Please add at least one photo for your object"
+      }).present()
+      return false 
+    } else if ((this.email == "" && this.wechat == "") && this.number == "") {
+      this.alertCtrl.create({
+        message: "Please add at least one contact information"
+      }).present()
+      return false 
+    } else if (this.price="") {
+      this.alertCtrl.create({
+        message: "Please enter a price for your object"
+      }).present()
+      return false 
+    } 
+    return true
+  }
+  
   submit() {
-    var ParseFile = new Parse.File("item.jpg", {base64: this.photofile});
-    const Item = Parse.Object.extend("Items")
-    var item = new Item();
-    item.set("user", this.user)
-    item.set("name", this.name)
-    item.set("description", this.description)
-    item.set("price", this.price)
-    item.set("Image", ParseFile)
-    item.save().then(()=>{
-      this.toastCtrl.create (
-        {
-          message: "Success",
-          duration: 2000
-        }
-      ).present()
-    }, (err) => {
-      alert('Error occurs in updating')
-      alert(err.message)
-    })
+    if (this.checkInput()) {
+      var ParseFile = new Parse.File("item.jpg", {base64: this.photofile});
+      const Item = Parse.Object.extend("Items")
+      var item = new Item();
+      item.set("user", this.user)
+      item.set("name", this.name)
+      item.set("description", this.description)
+      item.set("price", this.price)
+      item.set("Image", ParseFile)
+      item.save().then(()=>{
+        this.toastCtrl.create (
+          {
+            message: "Success",
+            duration: 2000
+          }
+        ).present()
+      }, (err) => {
+        alert('Error occurs in updating')
+        alert(err.message)
+      }) 
+    }
   }
 
   encodeImageFileAsURL(file) {

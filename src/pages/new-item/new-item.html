@@ -21,15 +21,25 @@
   <div>
       <ion-item>
           <ion-label stacked>Name</ion-label>
-          <ion-input [(ngModel)]="name"></ion-input>
+          <ion-input [(ngModel)]="name" required></ion-input>
         </ion-item>
         <ion-item>
             <ion-label stacked>Description</ion-label>
             <ion-input [(ngModel)]="description"></ion-input>
         </ion-item>
         <ion-item>
+          <ion-label stacked>Contact Information</ion-label>
+          <ion-input [(ngModel)]="email" placeholder="Email"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="wechat" placeholder="Wechat"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input [(ngModel)]="number" placeholder="Phone Number"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label stacked>Price</ion-label>
-          <ion-input [(ngModel)]="price"></ion-input>
+          <ion-input placeholder="$" [(ngModel)]="price"></ion-input>
       </ion-item>
   </div>
 

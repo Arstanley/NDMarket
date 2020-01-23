@@ -21,7 +21,11 @@ export class ItemDetailPage {
   cur_item: any;
   cur_usrname: any;
   description: any;
+  email: any;
+  wechat: any;
+  number: any;
   pics: Array<any>;
+
   constructor(public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, private storage: Storage) {
     this.pics = []
     this.cur_item = navParams.get('item');
@@ -54,6 +58,9 @@ export class ItemDetailPage {
       this.pics.push(item.get('Image').url())
       this.cur_usrname = item.get('user').get('username')
       this.description = item.get('description')
+      this.email = item.get('email')
+      this.wechat = item.get('wechat')
+      this.number = item.get('number')
       console.log(this.description)
     }
     )
