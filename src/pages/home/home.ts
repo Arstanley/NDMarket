@@ -13,6 +13,7 @@ import { ItemDetailPage } from '../item-detail/item-detail';
 })
 export class HomePage {
   public toggled:boolean = false;
+  user: any
   items: Array<{name: string, description: string, imageURL: any, id: any, price: any}>
   constructor(public loadingCtrl: LoadingController, public alertCtrl: AlertController, private storage: Storage, public navCtrl: NavController) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
@@ -20,6 +21,17 @@ export class HomePage {
   }
 
   async load() {
+    const User = Parse.User
+    var query = new Parse.Query(User);
+    this.storage.get('logged').then((userid)=>{
+      console.log(userid)
+      if (userid != null) {
+        query.get(userid).then((user)=>{
+          console.log(user)
+          this.user = user
+        })
+      }
+    })
     const loading = this.loadingCtrl.create({
       spinner: "dots",
     })
@@ -29,8 +41,12 @@ export class HomePage {
   }
 
   async parse() {
+    console.log(this.user)
     const Item = Parse.Object.extend("Items")
     const q = new Parse.Query(Item)
+    if (this.user != null) {
+      q.notEqualTo("user", this.user)
+    }
     const results = await q.find();
     this.items = []
     for (let i = 0; i < results.length; ++i) {
