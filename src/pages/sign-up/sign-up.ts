@@ -18,7 +18,7 @@ export class SignUpPage {
   username: String
   password: String
   email: String
-  takenAvatar: Boolean = true
+  takenAvatar: Boolean = false
   photoFile: any
   constructor(public camera: Camera, public actionSheetCtrl: ActionSheetController ,public toastCtrl: ToastController,public alertCtrl: AlertController,public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
@@ -43,13 +43,13 @@ export class SignUpPage {
         {
           text: "Take Photo",
           handler: () => {
-            this.takePhoto()
+            this.openCamera(1)
           }
         },
         {
           text: "Library",
           handler: () => {
-            this.selectPhotoFromLibrary()
+            this.openCamera(0)
           }
         },
         {
@@ -60,11 +60,7 @@ export class SignUpPage {
     }).present()
   }
 
-  selectPhotoFromLibrary() {
-
-  }
-
-  takePhoto() {
+  openCamera(sourceNum) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -72,7 +68,8 @@ export class SignUpPage {
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
       targetHeight: 1024,
-      targetWidth: 1024
+      targetWidth: 1024,
+      sourceType: sourceNum
     }
     
     this.camera.getPicture(options).then((imageData) => {
@@ -85,11 +82,7 @@ export class SignUpPage {
 
   signUp() {
     if (this.email.slice(-6) != 'nd.edu') {
-      this.alertCtrl.create({
-        title: 'Error',
-        message: 'You must use a nd affiliated email address',
-        buttons: ['OK']
-      }).present()
+     this.showAlert() 
     } else {
       Parse.User.signUp(this.username, this.password, {email: this.email}).then((resp) => {
           console.log('Signed up successfully', resp);

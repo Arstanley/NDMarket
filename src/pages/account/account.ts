@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ToastController, Toast } from 'ion
 import Parse from 'parse'
 import { HometabsPage } from '../hometabs/hometabs';
 import {Storage} from '@ionic/storage'
+import { LoginPage } from '../login/login';
+import { SignUpPage } from '../sign-up/sign-up';
 /**
  * Generated class for the AccountPage page.
  *
@@ -16,7 +18,7 @@ import {Storage} from '@ionic/storage'
   templateUrl: 'account.html',
 })
 export class AccountPage {
-
+  logged: boolean = null
   constructor(private storage: Storage, public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
    	Parse.serverURL = 'https://parseapi.back4app.com/';
@@ -42,5 +44,20 @@ export class AccountPage {
       }).present();
     })
   }
+
+  loginPage() {
+    this.navCtrl.push(LoginPage)
+  }
+
+  signUpPage() {
+    this.navCtrl.push(SignUpPage)
+  }
+
+  ionViewWillEnter() {
+    this.storage.get('logged').then((userid)=>{
+      this.logged = true
+    })
+  }
+
 }
 

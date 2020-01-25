@@ -20,20 +20,13 @@ import { FavoritesPage } from '../pages/favorites/favorites';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
-    HometabsPage,
-    LoginPage,
-    SignUpPage,
-    NewItemPage,
-    AccountPage,
-    ItemDetailPage,
-    FavoritesPage
+    HomePage
   ],
   imports: [
     BrowserModule,
     CommonModule,
     IonicStorageModule.forRoot(),
-    IonicModule.forRoot(MyApp, {swipeBackEnabled: true})
+    IonicModule.forRoot(MyApp, {swipeBackEnabled: true}),
   ],
   bootstrap: [IonicApp],
   entryComponents: [

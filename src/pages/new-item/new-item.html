@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <div text-center>
-      <button ion-button icon-only center (click)="openCamera()" *ngIf="takenPhoto==false">
+      <button ion-button icon-only center (click)="imageMenu()" *ngIf="takenPhoto==false">
         <ion-icon color="dark" name = "camera"></ion-icon>  
       </button>
       <p *ngIf="takenPhoto" id="img"><img src="{{this.photofile}}"></p>

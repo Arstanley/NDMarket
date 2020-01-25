@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
 import Parse from 'parse'
 import {Storage} from '@ionic/storage'
 import { loadavg } from 'os';
+import { LoginPage } from '../login/login';
 
 /**
  * Generated class for the FavoritesPage page.
@@ -20,7 +21,7 @@ export class FavoritesPage {
 
   favorites_list: Array<any>
   items: Array<{name: string, description: string, imageURL: any, id: any, price: any}>
-  constructor(private storage: Storage, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
+  constructor(private storage: Storage, public alertCtrl: AlertController, public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
     Parse.serverURL = 'https://parseapi.back4app.com/';
   }
@@ -66,7 +67,18 @@ export class FavoritesPage {
         }
 
       } else {
-
+        this.alertCtrl.create({
+          message: 'Please login to continue',
+          buttons: [
+            {text: "Login", 
+             handler: () => {
+              this.navCtrl.push(LoginPage)
+              }
+            }, 
+            {text: 'Cancel',
+             role: 'cancel'}
+          ]
+        }).present()
       }
     })
   }

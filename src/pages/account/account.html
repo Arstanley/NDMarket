@@ -16,8 +16,17 @@
   </div>
 
   <div text-center>
-    <button ion-button (click)="logOut()">
+    <button ion-button *ngIf="logged" (click)="logOut()">
       LOG OUT
     </button>
+
+    <div *ngIf='!logged'>
+      <button ion-button *ngIf='!logged' (click)='loginPage()'>
+        Sign in
+      </button>
+      <button ion-button (click)='signUpPage()'>
+        Sign up
+      </button>
+    </div>
   </div>
 </ion-content>

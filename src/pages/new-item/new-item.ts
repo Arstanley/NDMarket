@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController, Alert, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, LoadingController, Alert, AlertController, ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { DomSanitizer } from '@angular/platform-browser';
 import {File} from '@ionic-native/file'
@@ -8,6 +8,8 @@ import Parse from 'parse'
 import { query } from '@angular/core/src/render3/instructions';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { SelectorMatcher } from '@angular/compiler';
+import { Action } from 'rxjs/scheduler/Action';
+
 /**
  * Generated class for the NewItemPage page.
  *
@@ -32,7 +34,7 @@ export class NewItemPage {
   email: string
   number: any 
   wechat: string
-  constructor(public alertCtrl: AlertController, public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController ,public loadingCtrl: LoadingController, public toastCtrl: ToastController, private storage: Storage, public file: File, private sanitizer: DomSanitizer,private camera: Camera, public navCtrl: NavController, public navParams: NavParams) {
     Parse.initialize("rf2NBv5Xp2401bA8qdEVOTpsw04gjuUjyzgQBwZx", "5T7hpBGbnVOAsh2dcwnFSHzoZTk1miTvwqXqo7ky");
     Parse.serverURL = 'https://parseapi.back4app.com/';
     const User = Parse.User
@@ -47,7 +49,29 @@ export class NewItemPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad NewItemPage');
   }
-  openCamera() {
+
+  imageMenu() {
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Upload a photo',
+      buttons: [
+        {
+          text: 'Take a photo',
+          handler: () => {
+            this.openCamera(1)
+          }
+        }, 
+        {
+          text: 'Photo Gallery',
+          handler: () => {
+            this.openCamera(0)
+          }
+        }
+      ]
+    }) 
+    actionSheet.present() 
+  }
+
+  openCamera(sourceNum) {
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL,
@@ -55,7 +79,8 @@ export class NewItemPage {
       mediaType: this.camera.MediaType.PICTURE,
       allowEdit: true,
       targetHeight: 1024,
-      targetWidth: 1024
+      targetWidth: 1024,
+      sourceType: sourceNum
     }
     
     this.camera.getPicture(options).then((imageData) => {

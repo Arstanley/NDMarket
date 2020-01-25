@@ -94,4 +94,5 @@
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
     <plugin name="cordova-plugin-camera" spec="4.0.3" />
     <engine name="ios" spec="5.0.1" />
+    <plugin name="cordova-plugin-add-swift-support" spec="^2.0.2" />
 </widget>
